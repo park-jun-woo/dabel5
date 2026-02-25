@@ -1,5 +1,6 @@
 ---
 title: "DABEL5"
+aliases: ["/id/about/"]
 lastmod: 2026-02-25T12:00:00+09:00
 summary: "Kawanan Dyson yang mereplikasi diri dari sumber daya asteroid di orbit L5 — peta jalan rekayasa dalam hukum fisika."
 tagline: "Kawanan Dyson yang dimulai dari asteroid"

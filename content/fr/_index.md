@@ -1,5 +1,6 @@
 ---
 title: "DABEL5"
+aliases: ["/fr/about/"]
 lastmod: 2026-02-25T12:00:00+09:00
 summary: "Un essaim de Dyson auto-répliquant à partir de ressources d'astéroïdes en orbite L5 — une feuille de route d'ingénierie dans les lois de la physique."
 tagline: "Un essaim de Dyson qui commence par les astéroïdes"

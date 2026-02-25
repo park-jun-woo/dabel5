@@ -1,5 +1,6 @@
 ---
 title: "DABEL5"
+aliases: ["/about/"]
 lastmod: 2026-02-25T12:00:00+09:00
 summary: "A self-replicating Dyson swarm from asteroid resources at L5 — an engineering roadmap within the laws of physics."
 tagline: "A Dyson swarm starting from asteroids"

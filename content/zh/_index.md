@@ -1,5 +1,6 @@
 ---
 title: "DABEL5"
+aliases: ["/zh/about/"]
 lastmod: 2026-02-25T12:00:00+09:00
 summary: "以小行星资源在L5轨道自我复制的戴森云 — 在物理定律内设计的工程路线图。"
 tagline: "从小行星开始的戴森云"

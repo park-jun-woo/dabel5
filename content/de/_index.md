@@ -1,5 +1,6 @@
 ---
 title: "DABEL5"
+aliases: ["/de/about/"]
 lastmod: 2026-02-25T12:00:00+09:00
 summary: "Ein sich selbst replizierender Dyson-Schwarm aus Asteroiden-Ressourcen in der L5-Umlaufbahn — ein Ingenieur-Fahrplan innerhalb der Naturgesetze."
 tagline: "Ein Dyson-Schwarm, der bei Asteroiden beginnt"

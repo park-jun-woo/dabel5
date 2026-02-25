@@ -1,5 +1,6 @@
 ---
 title: "DABEL5"
+aliases: ["/es/about/"]
 lastmod: 2026-02-25T12:00:00+09:00
 summary: "Un enjambre de Dyson autorreplicante con recursos de asteroides en la órbita L5 — una hoja de ruta de ingeniería dentro de las leyes de la física."
 tagline: "Un enjambre de Dyson que empieza en los asteroides"
