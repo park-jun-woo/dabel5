@@ -1,0 +1,18 @@
+{{ define "main" }}
+<div class="content-wrap">
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+  {{ if .Content }}<hr class="section-divider">{{ end }}
+  {{ range .Pages }}
+  {{ $page := . }}
+  <article class="post-item{{ with .Params.image }} has-image{{ end }}">
+    {{ with .Params.image }}<a class="post-item-image" href="{{ $page.RelPermalink }}"><img src="{{ . }}" alt="{{ $page.Title }}" loading="lazy"></a>{{ end }}
+    <div class="post-item-body">
+      <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+      {{ with .Params.summary }}<p>{{ . }}</p>{{ end }}
+      {{ if not .Date.IsZero }}<time>{{ .Date.Format "2006-01-02" }}</time>{{ end }}
+    </div>
+  </article>
+  {{ end }}
+</div>
+{{ end }}

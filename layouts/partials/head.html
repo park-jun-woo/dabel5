@@ -1,0 +1,62 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+<meta name="description" content="{{ with .Params.summary }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+<meta name="author" content="{{ .Site.Params.author }}">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="canonical" href="{{ .Permalink }}">
+{{ if .IsTranslated -}}
+{{ range .Translations -}}
+<link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
+{{ end -}}
+<link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
+{{ range .AllTranslations -}}
+{{ if eq .Lang "en" -}}
+<link rel="alternate" hreflang="x-default" href="{{ .Permalink }}">
+{{ end -}}
+{{ end -}}
+{{ end -}}
+{{- $ogImage := "/og-image.webp" -}}
+{{- with .Params.image -}}
+  {{- $ogImage = . -}}
+{{- else -}}
+  {{- with findRE `!\[.*?\]\((/images/[^)]+)\)` .RawContent 1 -}}
+    {{- with index . 0 -}}
+      {{- $ogImage = replaceRE `!\[.*?\]\((/images/[^)]+)\)` "$1" . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $ogImageAbs := printf "%s%s" (strings.TrimRight "/" .Site.BaseURL) $ogImage -}}
+<meta property="og:title" content="{{ .Title }}">
+<meta property="og:description" content="{{ with .Params.summary }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:image" content="{{ $ogImageAbs }}">
+<meta property="og:type" content="{{ if and .IsPage (eq .Slug "about") }}profile{{ else if .IsPage }}article{{ else }}website{{ end }}">
+{{- $localeMap := dict "en" "en_US" "ko" "ko_KR" "zh" "zh_CN" "es" "es_ES" "ar" "ar_SA" "pt" "pt_BR" "id" "id_ID" "ru" "ru_RU" "ja" "ja_JP" "fr" "fr_FR" "de" "de_DE" "he" "he_IL" -}}
+<meta property="og:locale" content="{{ index $localeMap .Lang }}">
+{{ range .Translations -}}
+<meta property="og:locale:alternate" content="{{ index $localeMap .Lang }}">
+{{ end -}}
+<meta property="og:site_name" content="{{ .Site.Title }}">
+{{ if .IsPage -}}
+<meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" }}">
+{{ if not .Lastmod.IsZero }}<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" }}">{{ end }}
+<meta property="article:author" content="{{ .Site.Params.author }}">
+{{ range .Params.tags }}<meta property="article:tag" content="{{ . }}">
+{{ end -}}
+{{ with .Section }}<meta property="article:section" content="{{ . }}">{{ end }}
+{{ end -}}
+{{ if or (eq .Kind "taxonomy") (eq .Kind "term") -}}
+<meta name="robots" content="noindex, follow">
+{{ end -}}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ .Title }}">
+<meta name="twitter:description" content="{{ with .Params.summary }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+<meta name="twitter:image" content="{{ $ogImageAbs }}">
+{{ $css := resources.Get "css/main.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}">
+{{ with .OutputFormats.Get "RSS" -}}
+<link rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" href="{{ .RelPermalink }}">
+{{ end -}}
+{{- partial "schema.html" . -}}

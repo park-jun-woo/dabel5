@@ -1,0 +1,37 @@
+# Hugo
+/public/
+/resources/
+
+# Analytics
+/logs/
+stats.html
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+.terraform.tfstate.lock.info
+.terraform.lock.hcl
+
+# Secrets
+*.pem
+*.key
+*.crt
+.env
+.env.*
+
+# OS/Editor
+.DS_Store
+Thumbs.db
+
+# Drafts and notes (Hugo 빌드 미포함)
+draft/
+notes/
+workspace/
+scripts/
+
+# Claude AI 관련 파일
+.claude/
+CLAUDE.md

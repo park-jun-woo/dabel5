@@ -1,0 +1,170 @@
+{{ define "main" }}
+<div class="dabel-page">
+
+  {{/* ===== HERO ===== */}}
+  <section class="dabel-hero">
+    <div class="dabel-inner">
+      <h1 class="dabel-title">DABEL5</h1>
+      <p class="dabel-acronym">
+        <span class="dabel-hl">D</span>yson modules from
+        <span class="dabel-hl">A</span>steroid
+        <span class="dabel-hl">B</span>elt to
+        <span class="dabel-hl">E</span>arth
+        <span class="dabel-hl">L5</span>
+      </p>
+      <p class="dabel-tagline">{{ .Params.tagline }}</p>
+      <p class="dabel-desc">{{ .Params.description }}</p>
+      {{ with .Params.cta_label }}<a class="dabel-cta" href="{{ "why/" | relLangURL }}">{{ . }}</a>{{ end }}
+    </div>
+  </section>
+
+  {{/* ===== CORE CONCEPT ===== */}}
+  <section class="dabel-section">
+    <div class="dabel-inner">
+      <h2>{{ .Params.core_title }}</h2>
+      <p class="dabel-lead">{{ .Params.core_lead }}</p>
+      <div class="dabel-flow">
+        <div class="dabel-flow-items">
+          {{ range .Params.core_flow }}
+          <span>{{ . }}</span><span class="dabel-flow-arrow">&rarr;</span>
+          {{ end }}
+        </div>
+      </div>
+      <blockquote class="dabel-quote">
+        "{{ .Params.core_quote }}"
+      </blockquote>
+    </div>
+  </section>
+
+  {{/* ===== MODULE SPECS ===== */}}
+  <section class="dabel-section dabel-section-alt">
+    <div class="dabel-inner">
+      <h2>{{ .Params.module_title }}</h2>
+      <p class="dabel-lead">{{ .Params.module_lead | safeHTML }}</p>
+      <div class="dabel-stats">
+        {{ range .Params.module_stats }}
+        <div class="dabel-stat">
+          <div class="dabel-stat-value">{{ .value | safeHTML }}</div>
+          <div class="dabel-stat-label">{{ .label }}</div>
+          <div class="dabel-stat-note">{{ .note }}</div>
+        </div>
+        {{ end }}
+      </div>
+      <p class="dabel-footnote">{{ .Params.module_footnote | safeHTML }}</p>
+    </div>
+  </section>
+
+  {{/* ===== SEASON ROADMAP ===== */}}
+  <section class="dabel-section">
+    <div class="dabel-inner">
+      <h2>{{ .Params.roadmap_title }}</h2>
+      <p class="dabel-lead">{{ .Params.roadmap_lead }}</p>
+      <div class="dabel-timeline">
+        {{ range $i, $s := .Params.seasons }}
+        <div class="dabel-season" data-season="{{ $s.num }}">
+          <div class="dabel-season-head">
+            <span class="dabel-season-num">S{{ $s.num }}</span>
+            <span class="dabel-season-icon">{{ $s.icon | safeHTML }}</span>
+          </div>
+          <div class="dabel-season-body">
+            <h3>{{ $s.name | safeHTML }}</h3>
+            <p class="dabel-season-meta">{{ $s.episodes }}</p>
+            <p>{{ $s.desc }}</p>
+            <p class="dabel-season-line">"{{ $s.line }}"</p>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+
+  {{/* ===== SELF-REPLICATION LOOP ===== */}}
+  <section class="dabel-section dabel-section-alt">
+    <div class="dabel-inner">
+      <h2>{{ .Params.loop_title }}</h2>
+      <p class="dabel-lead">{{ .Params.loop_lead }}</p>
+      <div class="dabel-loop-cards">
+        {{ $len := len .Params.loop_nodes }}
+        {{ range $i, $node := .Params.loop_nodes }}
+        <div class="dabel-loop-card">
+          <strong>{{ $node.title }}</strong>
+          <span>{{ $node.detail | safeHTML }}</span>
+        </div>
+        {{ if lt (add $i 1) $len }}<span class="dabel-loop-card-arrow">&rarr;</span>{{ end }}
+        {{ end }}
+      </div>
+      <p class="dabel-loop-caption">{{ .Params.loop_caption | safeHTML }}</p>
+    </div>
+  </section>
+
+  {{/* ===== SCALE ===== */}}
+  <section class="dabel-section">
+    <div class="dabel-inner">
+      <h2>{{ .Params.scale_title }}</h2>
+      <p class="dabel-lead">{{ .Params.scale_lead }}</p>
+      <div class="dabel-table-wrap">
+        <table class="dabel-table">
+          <thead>
+            <tr>
+              {{ range .Params.scale_headers }}
+              <th>{{ . }}</th>
+              {{ end }}
+            </tr>
+          </thead>
+          <tbody>
+            {{ range .Params.scale_rows }}
+            <tr{{ if .hl }} class="dabel-table-hl{{ if .accent }} dabel-table-accent{{ end }}"{{ end }}>
+              {{ range .cells }}
+              <td>{{ . | safeHTML }}</td>
+              {{ end }}
+            </tr>
+            {{ end }}
+          </tbody>
+        </table>
+      </div>
+      <p class="dabel-footnote">{{ .Params.scale_footnote | safeHTML }}</p>
+    </div>
+  </section>
+
+  {{/* ===== KILLER LINES ===== */}}
+  <section class="dabel-section dabel-section-alt">
+    <div class="dabel-inner">
+      <h2>{{ .Params.quotes_title }}</h2>
+      <div class="dabel-quotes">
+        {{ range .Params.quotes }}
+        <blockquote class="dabel-quote-card">
+          <p>"{{ .text }}"</p>
+          {{ with .cite }}<cite>{{ . }}</cite>{{ end }}
+        </blockquote>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+
+  {{/* ===== ARCHITECTURE ===== */}}
+  <section class="dabel-section">
+    <div class="dabel-inner">
+      <h2>{{ .Params.arch_title }}</h2>
+      <p class="dabel-lead">{{ .Params.arch_lead }}</p>
+      <div class="dabel-arch">
+        {{ range .Params.arch_nodes }}
+        <div class="dabel-arch-node {{ .class }}">
+          <div class="dabel-arch-label">{{ .label }}</div>
+          <div class="dabel-arch-name">{{ .name }}</div>
+          <div class="dabel-arch-detail">{{ .detail | safeHTML }}</div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+
+  {{/* ===== CLOSING ===== */}}
+  <section class="dabel-section dabel-closing">
+    <div class="dabel-inner">
+      <p class="dabel-closing-text">{{ .Params.closing_text | safeHTML }}</p>
+      <p class="dabel-motto">"This is DABEL5. We engineer the future."</p>
+    </div>
+  </section>
+
+</div>
+{{ end }}

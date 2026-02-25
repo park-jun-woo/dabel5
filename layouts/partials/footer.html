@@ -1,0 +1,9 @@
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <p>&copy; {{ now.Year }} <a href="https://www.parkjunwoo.com/1/en/about/">Park Jun Woo</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></p>
+    <div>
+      {{ with .OutputFormats.Get "RSS" }}<a href="{{ .RelPermalink }}">RSS</a> · {{ end }}
+      <a href="{{ "languages/" | relLangURL }}">Languages</a>
+    </div>
+  </div>
+</footer>

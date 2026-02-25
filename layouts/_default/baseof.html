@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="{{ .Lang }}"{{ if or (eq .Lang "ar") (eq .Lang "he") }} dir="rtl"{{ end }}>
+<head>
+  {{- partial "head.html" . -}}
+</head>
+<body>
+  <canvas id="bg-canvas"></canvas>
+  {{- partial "header.html" . -}}
+  <main>
+    {{- block "main" . }}{{ end -}}
+  </main>
+  {{- partial "footer.html" . -}}
+{{ if ne .Lang "en" }}<script>document.cookie='lang={{ .Lang }};path=/;max-age=31536000;SameSite=Lax'</script>{{ else }}<script>document.cookie='lang=;path=/;max-age=0;SameSite=Lax'</script>{{ end }}
+{{ $stars := resources.Get "js/stars.js" | minify | fingerprint }}
+<script src="{{ $stars.RelPermalink }}" defer></script>
+</body>
+</html>
