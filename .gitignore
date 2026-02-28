@@ -1,19 +1,7 @@
-# Hugo
+# Website (migrated to dabel5-org)
 /public/
 /resources/
-
-# Analytics
-/logs/
-stats.html
-
-# Terraform
-.terraform/
-*.tfstate
-*.tfstate.*
-*.tfvars
-*.tfvars.json
-.terraform.tfstate.lock.info
-.terraform.lock.hcl
+/deployments/
 
 # Secrets
 *.pem
@@ -26,12 +14,6 @@ stats.html
 .DS_Store
 Thumbs.db
 
-# Drafts and notes (Hugo 빌드 미포함)
-draft/
-notes/
-workspace/
-scripts/
-
-# Claude AI 관련 파일
+# Claude AI
 .claude/
 CLAUDE.md

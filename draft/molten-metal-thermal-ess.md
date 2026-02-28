@@ -1,0 +1,335 @@
+# 왜 배터리가 아니라 용융금속인가
+
+---
+
+## 이전 글에서 빠뜨린 것
+
+이전 글에서 철-니켈 배터리가 리튬이온을 이기는 이유를 보였다. 소행성에 리튬은 없고, 진공에서 화재를 끌 수 없고, 철-니켈은 30~50년 가고, 과충전하면 수소를 만든다.
+
+전부 맞다. **하지만 한 가지를 빠뜨렸다.**
+
+다이슨 모듈은 태양열 발전소다. 거울이 빛을 모으고, 열로 터빈을 돌린다. eclipse(식) 대비로 에너지를 저장해야 할 때, 지금 설계는 이렇게 된다:
+
+```
+태양열 (1,600°C) → 터빈 → 전기 (370 MW)
+                         → 잉여 전력 (~50 MW)
+                              → 배터리 (화학 에너지)    ← 변환 2회
+                              → eclipse 시 → 전기 복귀  ← 변환 3회
+```
+
+열 → 전기 → 화학 → 전기. **변환 3회.** 매 단계마다 20~30% 손실.
+
+열을 직접 저장하면?
+
+```
+태양열 (1,600°C) → 일부를 축열조에 직접 저장         ← 변환 0회
+                → eclipse 시 → 축열조 → 터빈 → 전기  ← 변환 1회
+```
+
+**변환 1회.** 효율 차이가 압도적이다.
+
+태양열 발전소의 잉여 에너지를 전기로 바꿔서 화학으로 바꿔서 다시 전기로 되돌리는 건, 물을 수증기로 만들어 수소와 산소로 분리한 다음 다시 합쳐서 물로 되돌리는 것과 같다. **되긴 되는데, 왜?**
+
+열 저장이 답이다. 그런데 왜 지구에서는 안 하나?
+
+---
+
+## 지구에서는 안 되는 이유, 우주에서는 되는 이유
+
+지구에서 용융금속에 열을 저장하는 건 학계의 연구 주제이지 산업 현실이 아니다. 이유가 있다:
+
+| 문제 | 지구 | 우주 (무중력 진공) |
+|------|------|-------------------|
+| 용기 | 수천 톤 용융물의 중량을 지지해야 함 → 거대하고 비쌈 | **자중 없음** — 얇은 벽, 또는 아예 비접촉 |
+| 단열 | 대류 + 전도 + 복사를 전부 차단해야 함 | **복사만 차단** — MLI 수십 겹이면 끝 |
+| 열 손실 | 높음 — 공기 대류가 주범 | **극히 낮음** — 진공에서 대류 제로 |
+| 부식 | 1,500°C 용융물이 벽면을 침식 | **전자기 부유로 비접촉** → 부식 제로 |
+| 안전 | 누출 시 대형 사고 | 진공이라 화재 없음, 누출이 퍼질 매질 없음 |
+
+**지구의 약점이 우주에서는 전부 사라지거나 역전된다.** 이전 글들에서 반복된 패턴 — 터빈 vs PV, 철-니켈 vs 리튬이온 — 과 정확히 같은 구조다.
+
+---
+
+## 전자기 부유 축열
+
+용융된 Fe-Ni는 1,500°C에서도 전기 전도체다 (니켈의 퀴리점 이상이라 자성은 잃지만, 도전성은 유지). 교류 전자기장을 걸면 와전류(eddy current)가 유도되고, 와전류와 자기장의 반발력으로 **비접촉 부유**가 가능하다.
+
+지구에서도 실험실에서 쓰는 기술이다. EML(Electromagnetic Levitation) 용해라고 부른다. 수 g에서 수 kg의 금속 시료를 공중에 띄워 녹인다. 지구에서 더 크게 못 하는 이유는 단 하나 — **중력**. 중력을 이기려면 자기장이 강해야 하고, 강한 자기장은 에너지를 먹는다. 수 kg이 한계.
+
+무중력에서는? **이길 중력이 없다.** 위치 안정화에 필요한 최소한의 자기장만 있으면 된다. 수 톤이든, 수백 톤이든, 수만 톤이든.
+
+```
+[축열 유닛 단면]
+
+        ┌─── MLI 반사벽 (다층 반사 단열) ───┐
+        │                                    │
+        │    ┌── 전자기 코일 (냉각) ──┐      │
+        │    │                        │      │
+        │    │   ●●●●●●●●●●●●●●●    │      │
+        │    │   ● 용융 Fe-Ni 덩어리 ●    │      │
+        │    │   ● (1,200~1,500°C)  ●    │      │
+        │    │   ●●●●●●●●●●●●●●●    │      │
+        │    │                        │      │
+        │    └────────────────────────┘      │
+        │                                    │
+        └────────────────────────────────────┘
+```
+
+무중력에서 용융 금속은 표면장력에 의해 **자연스럽게 구형**이 된다. 구형은 부피 대비 표면적이 최소 — 복사 열 손실이 최소. MLI 반사벽이 복사열을 가두고, 전자기장이 위치를 잡아주고, 벽면과는 비접촉이라 부식이 제로.
+
+**소행성에서 캐낸 Fe-Ni를 녹여서 그냥 둥둥 띄워놓으면 축열조다.**
+
+---
+
+## 충전과 방전
+
+```
+[충전 — 평상시]
+태양열 집광 → 복사 셔터 개방 → 금속 덩어리 가열 → 1,200°C → 1,500°C
+
+[방전 — eclipse 시]
+복사 셔터 개방 → 금속 덩어리의 복사열이 열교환기 가열 → 작동유체 → 터빈
+1,500°C → 1,200°C (ΔT=300°C 활용)
+```
+
+충전: 거울이 모은 태양열 일부를 축열조 방향으로 보내면 끝. 셔터를 열면 빛이 금속 덩어리를 가열한다.
+
+방전: eclipse가 오면 셔터를 열어 금속 덩어리의 복사열을 열교환기가 받는다. 열교환기가 작동유체를 가열하고 터빈을 돌린다. 기존 터빈을 그대로 쓴다 — 평소에는 거울이 열원, eclipse 시에는 축열조가 열원. **터빈 입장에서는 열원이 바뀔 뿐 나머지는 동일.**
+
+열교환의 매개는 복사다. 비접촉 용융체에 파이프를 꽂을 수는 없으니, 복사 셔터를 통한 열전달이 기본 메커니즘이다. 1,500°C 용융 금속의 복사 에너지는 스테판-볼츠만 법칙에 의해 T⁴에 비례 — 충분히 강력하다.
+
+---
+
+## 에너지 밀도: 비열 + 잠열
+
+Fe-Ni 합금의 비열: ~0.5 kJ/(kg·K) = ~0.14 Wh/(kg·K). 온도 변화(ΔT)에 비례하는 **현열(sensible heat)**만 계산하면:
+
+| 온도 범위 (ΔT) | 현열 | 비고 |
+|----------------|------|------|
+| 300°C (1,200→1,500°C) | ~42 Wh/kg | 보수적 |
+| 500°C (1,000→1,500°C) | ~70 Wh/kg | 중간 |
+| 1,000°C (500→1,500°C) | ~140 Wh/kg | 적극적 |
+
+하지만 여기서 끝이 아니다.
+
+### 잠열 보너스
+
+Fe-Ni 합금의 융점은 ~1,430~1,450°C다. 운용 범위 1,000~1,500°C는 이 융점을 **관통한다.** 충전 시 금속이 녹고, 방전 시 굳는다 — 상변화(phase change).
+
+물질이 녹을 때 온도는 오르지 않으면서 막대한 열을 흡수한다. 이것이 **융해 잠열(latent heat of fusion).**
+
+```
+철(Fe) 융해 잠열: ~270 kJ/kg ≈ 75 Wh/kg
+Fe-Ni 합금: 유사 범위
+```
+
+현열과 잠열을 합산하면:
+
+| 온도 범위 | 현열 | 잠열 | **합계** |
+|----------|------|------|---------|
+| 300°C (1,200→1,500°C) | ~42 | ~75 | **~117 Wh/kg** |
+| 500°C (1,000→1,500°C) | ~70 | ~75 | **~145 Wh/kg** |
+| 1,000°C (500→1,500°C) | ~140 | ~75 | **~215 Wh/kg** |
+
+**잠열 하나로 에너지 밀도가 2배.** 쇳덩어리가 녹았다 굳는 것만으로 리튬이온 배터리(150~270 Wh/kg)의 하단과 겹친다.
+
+### ESS 비교 (잠열 포함)
+
+| 방식 | 에너지 밀도 | 사이클 수명 | 소재 조달 |
+|------|-----------|-----------|----------|
+| 리튬이온 | 150~270 Wh/kg | 3,000~10,000회 | 불가 (소행성에 Li 없음) |
+| 철-니켈 배터리 | 30~50 Wh/kg | 사실상 무한 | 소행성 Fe-Ni |
+| **용융 Fe-Ni 축열** | **117~215 Wh/kg** | **사실상 무한** | **소행성 Fe-Ni** |
+
+리튬이온과 에너지 밀도가 동급이면서, 사이클 수명은 무한이고, 소재는 소행성에서 발에 채인다. 그리고 열 → 전기 변환이 1회뿐이라 시스템 효율까지 압도적.
+
+사이클 수명이 무한인 이유: 금속 덩어리를 뜨겁게 했다가 식히는 것이다. 화학 반응이 없다. 전극이 없다. 전해질이 없다. 열화시킬 것 자체가 없다.
+
+---
+
+## 규모: 왜 거대한 구 하나가 아니라 작은 유닛 60개인가
+
+eclipse 최대 12시간, 터빈 출력 370 MW. 전부를 축열로 커버할 필요는 없다 — H₂ 연료전지와 배터리가 분담한다.
+
+### 하이브리드 산정
+
+```
+eclipse 12시간 중:
+  축열조: 6시간분
+  H₂ 연료전지: 4시간분 (바톨라이저 연간 축적분)
+  철-니켈 배터리: 2시간분 (순간 부하 추종 + 백업)
+```
+
+축열조 6시간분 (잠열 포함):
+
+```
+370 MW ÷ 0.30 (터빈 효율) = ~1,233 MW(th) × 6h = ~7,400 MWh(th)
+
+ΔT=500°C + 잠열 기준 (145 Wh/kg):
+  필요 질량 = 7,400,000 kWh ÷ 0.145 kWh/kg = ~51,000 톤
+
+(잠열 미포함 시 105,000톤 → 잠열 보너스로 질량 반감)
+```
+
+51,000톤을 구 하나에 담으면 반경 ~12 m. 직관적으로 단순하다. **하지만 이건 안 된다.** 세 가지 공학적 이유가 있다.
+
+### 이유 1: 방전 시 표면적이 부족하다
+
+eclipse 시 축열체는 **복사로만** 열교환기에 열을 전달한다. 복사 출력은 표면적에 비례한다 (P = ε σ A T⁴).
+
+구형은 부피 대비 표면적이 최소인 형태다. 열을 **보관**할 때는 최적이지만, 열을 **빠르게 뿜어낼** 때는 병목이 된다.
+
+```
+필요 열출력: ~1,233 MW(th)
+
+1,500°C(1,773K) 복사 출력 (ε=0.5):
+  P/A = ε × σ × T⁴ = 0.5 × 5.67e-8 × 1,773⁴ ≈ 280 kW/m²
+
+필요 표면적: 1,233,000 kW ÷ 280 kW/m² ≈ 4,400 m²
+
+반경 12m 단일 구의 표면적: 4π(12)² ≈ 1,810 m² → ❌ 부족 (필요량의 41%)
+```
+
+**단일 구는 물리적으로 필요한 열을 뿜어낼 수 없다.** 표면적이 절반도 안 된다.
+
+반경 3 m 유닛 ~58개로 쪼개면:
+
+```
+유닛 1개 표면적: 4π(3)² ≈ 113 m²
+58개 총 표면적: 113 × 58 ≈ 6,560 m² → ✅ 필요량의 149% (여유 있음)
+유닛 1개 질량: (4/3)π(3)³ × 7,800 ≈ 880 톤
+```
+
+**저장할 때는 각 유닛이 구형을 유지하여 손실을 최소화하고, 방전할 때는 복수 유닛의 총 표면적으로 충분한 열출력을 확보한다.** 구형의 단점을 유닛 개수로 해결.
+
+### 이유 2: 슬로싱 — 10만 톤 용암 레킹볼
+
+51,000톤의 액체 금속이 단일 구로 떠 있을 때, 모듈이 자세 제어를 위해 조금이라도 회전하거나 진동하면 내부에 **거대한 파도(sloshing)**가 발생한다. 자기유체역학(MHD) 불안정성까지 겹치면 이 용암 덩어리가 꿀렁거리다 전자기장 구속을 뚫고 나올 위험이 있다.
+
+반경 3 m, 880톤 유닛이면? 유동 에너지가 유닛 크기의 세제곱에 비례하므로 **개별 유닛의 슬로싱 에너지는 단일 구 대비 1/10,000 이하**로 줄어든다. 구속 이탈 위험이 사실상 제거된다.
+
+### 이유 3: 상변화 시 부피 팽창
+
+1,200°C(고체)와 1,500°C(액체)를 오가면 Fe-Ni는 팽창과 수축을 반복한다. 반경 12 m 구가 겉부터 식으면 고체 껍질이 형성되고, 내부 액체가 수축하면서 **껍질이 깨져 파편이 진공으로 튀는** 위험이 있다. 소형 유닛은 내부-외부 온도 구배가 균일하게 관리되어 이 문제가 해소된다.
+
+### 설계 결론
+
+```
+축열 유닛 사양:
+  형상: 구형 (표면장력에 의한 자연 형성)
+  반경: ~3 m
+  질량: ~880 톤/유닛
+  유닛 수: ~58개 (모듈당)
+  총 질량: ~51,000 톤
+  배치: 거울 뒤 구조물 내 분산 배치 (균형추 겸용)
+
+방전 성능:
+  총 표면적: ~6,560 m² (필요량 4,400 m² 대비 149%)
+  1,233 MW(th) 출력 여유 확보
+```
+
+51,000톤은 별도로 조달하는 게 아니다. 소행성에서 제련한 Fe-Ni를 **녹인 채로 굳히지 않고 그냥 두면 축열 유닛**이다. 모듈 구조물에 분산 배치하면 **균형추**도 겸한다.
+
+---
+
+## 3계층 ESS: 역할 분리
+
+배터리가 벌크 ESS를 맡을 필요가 없어진다. 각 계층에 최적의 기술을 배치한다:
+
+```
+1차 — 벌크 (시간 단위)
+  └→ 용융금속 축열조
+       충전: 태양열 직접
+       방전: 축열 → 터빈 → 전기
+       역할: eclipse 대응, 변환 손실 최소
+
+2차 — 버퍼 (초~분 단위)
+  └→ 철-니켈 배터리
+       충전: 잉여 전력
+       방전: 전기화학 (ms 응답)
+       역할: 순간 부하 추종, 기동 전력
+
+3차 — 비상 + 화학 생산
+  └→ H₂/O₂ (바톨라이저 산출물)
+       연료전지 비상 발전
+       추진제·환원제·호흡용 산소
+       eclipse 장기화 시 2차 백업
+```
+
+### 이 구조가 주는 것
+
+**배터리 뱅크가 대폭 줄어든다.** 이전 설계에서 12시간 eclipse를 배터리만으로 커버하면 111,000 m³가 필요했다. 축열조가 벌크를 맡으면 배터리는 2시간분 — 수천 m³로 축소.
+
+**바톨라이저의 역할이 명확해진다.** 이전 글에서 바톨라이저(과충전 시 수전해)를 ESS 기능과 화학 생산을 겸하는 것으로 설명했다. 축열조가 벌크 ESS를 맡으면 바톨라이저는 **화학 공장**으로 포지셔닝된다 — 수소 추진제, 산소, 환원제 생산이 본업이고, 비상 발전은 부업.
+
+**소재가 동일하다.** 축열조 = 용융 Fe-Ni. 배터리 = Fe-Ni 전극. 바톨라이저 = 같은 배터리에 과충전. 3계층 전부 소행성 Fe-Ni에서 나온다. 자기복제 루프에 새로운 원료가 추가되지 않는다.
+
+---
+
+## 이전 글(철-니켈 배터리)과의 관계
+
+이전 글의 핵심 논지는 **전부 유효하다:**
+
+- 소행성에 리튬이 없다 → 그대로
+- 철-니켈 배터리의 30~50년 수명 → 그대로
+- 진공에서 화재 위험 → 그대로
+- 바톨라이저의 H₂/O₂ 생산 → 그대로
+- 현지 제조 가능 → 그대로
+
+**보완하는 부분:** 철-니켈 배터리가 벌크 ESS(eclipse 12시간 대응)까지 혼자 감당하는 것처럼 읽힐 수 있었다. 실제로는 벌크 에너지 저장에는 열 저장이 압도적으로 유리하고, 배터리는 순간 응답이라는 자기 영역에서 빛난다.
+
+**각자 잘하는 걸 하면 된다.** 용광로는 시간 단위 열 저장. 배터리는 밀리초 단위 전력 응답. 연료전지는 비상 대응 + 화학 생산. 하나가 전부를 감당할 필요가 없다.
+
+---
+
+## 한 줄 요약
+
+다이슨 모듈은 태양열 발전소인데 열을 전기로 바꿔 화학으로 바꿔 다시 전기로 되돌리는 건 삼중 변환 손실이다. 소행성 Fe-Ni를 녹여서 무중력에 띄워놓으면 변환 0회 충전, 1회 방전의 축열조가 된다. 상변화 잠열까지 합산하면 에너지 밀도 ~145 Wh/kg — 리튬이온과 동급. 반경 3 m 유닛 58개를 분산 배치하여 방전 시 표면적 병목, 슬로싱, 상변화 팽창을 해결한다. 소재는 전부 같은 소행성 Fe-Ni.
+
+---
+
+## Discussion
+
+The previous post argued iron-nickel batteries are the right choice for a Dyson module's energy storage. That's still true — but only for part of the job.
+
+Here's what I missed: **a Dyson module is a solar thermal power plant.** The energy enters as heat. The turbine converts 30% to electricity and rejects 70% as heat. When you store surplus energy in a battery, you're doing heat → electricity → chemistry → electricity — three conversions, each losing 20–30%.
+
+What if you skip all that and **store the heat directly?**
+
+Melt some Fe-Ni. Keep it at 1,200–1,500°C. When eclipse comes, use it to run the turbine instead of the mirror. One conversion instead of three.
+
+**"Why doesn't Earth do this?"** Because on Earth, keeping thousands of tons of molten metal is a nightmare:
+- A massive container must bear the full weight of the melt
+- You fight conduction, convection, AND radiation heat loss simultaneously
+- The molten metal corrodes the container walls at 1,500°C
+- A leak means catastrophe
+
+In zero-g vacuum, **every one of these problems vanishes:**
+- No weight to support — the melt floats
+- No conduction or convection in vacuum — only radiation, blocked by MLI
+- Electromagnetic levitation keeps the melt contactless — zero corrosion
+- Vacuum means no fire, no medium for leaks to spread through
+
+The melt naturally forms a sphere (surface tension in zero-g) — the geometry that minimizes surface-area-to-volume ratio, and therefore minimizes radiative heat loss. It's the ideal shape, and it happens for free.
+
+**Energy density:** Fe-Ni has ~0.14 Wh/(kg·K). Over a 500°C range (1,000→1,500°C), sensible heat alone gives ~70 Wh/kg. But there's a bonus I initially missed: the Fe-Ni melting point (~1,430–1,450°C) sits right inside the operating range. Every charge-discharge cycle crosses the phase change, adding ~75 Wh/kg of latent heat of fusion. **Total: ~145 Wh/kg** — matching the low end of lithium-ion (150–270 Wh/kg), with infinite cycle life, from the same asteroid metal.
+
+**Scale:** 6 hours of eclipse coverage at 370 MW needs ~51,000 tons of Fe-Ni at 145 Wh/kg (latent heat cuts the previous 105,000-ton estimate in half). But you can't make one giant sphere — three engineering constraints force a multi-unit design:
+
+1. **Discharge surface area:** At 1,500°C, radiative flux is ~280 kW/m². Discharging 1,233 MW(th) requires ~4,400 m² of surface. A single r=12m sphere has only 1,810 m² — physically insufficient. Split into ~58 spheres of r=3m and total surface jumps to 6,560 m² — 149% of requirement.
+2. **Sloshing:** 51,000 tons of liquid metal in one blob develops catastrophic internal waves during any attitude adjustment. MHD instability could breach electromagnetic containment. Small units reduce sloshing energy by 10,000×.
+3. **Phase change stress:** Solidifying from the outside in, a large sphere forms a rigid shell while the liquid interior contracts — cracking the shell and ejecting fragments. Small units maintain uniform temperature gradients.
+
+**Design point: ~58 spheres, radius 3m, ~880 tons each, distributed throughout the module structure as both thermal storage and counterweights.**
+
+This naturally leads to a **three-tier ESS architecture:**
+
+1. **Tier 1 — Bulk (hours):** Molten metal thermal storage. Eclipse coverage. Minimum conversion loss.
+2. **Tier 2 — Buffer (seconds to minutes):** Iron-nickel batteries. Instant load-following, startup power. Millisecond response.
+3. **Tier 3 — Emergency + chemical production:** H₂/O₂ from battolysers. Fuel cell backup. Plus propellant, reducing agent, and breathable oxygen production.
+
+The previous post's argument for iron-nickel batteries is fully intact — batteries are irreplaceable for instant response and the battolyser's dual function. What changes is the scope: batteries don't need to carry the bulk storage burden alone. That job belongs to the thermal store.
+
+Each technology does what it's best at. The furnace stores hours of heat. The battery delivers milliseconds of power. The fuel cell handles emergencies and makes chemicals. All three from the same asteroid Fe-Ni.
+
+What's your reaction to electromagnetic levitation at this scale? The multi-unit design (58 × r=3m spheres) emerged from hard constraints — surface area for discharge, sloshing, phase-change stress — not just redundancy preference. Would you pick a different unit size, or a different geometry entirely?
